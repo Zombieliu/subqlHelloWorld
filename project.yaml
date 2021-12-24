@@ -1,0 +1,25 @@
+specVersion: 0.2.0
+name: subqlHelloWorld
+version: 1.0.0
+description: '1'
+repository: ''
+schema:
+  file: ./schema.graphql
+network:
+  genesisHash: '0x456938824b0bb8c1e171c10cb6b84243d01573c5b48821d4e9b29e935fd01bf8'
+  endpoint: wss://testnet.web3games.org
+dataSources:
+  - kind: substrate/Runtime
+    startBlock: 1
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Deposit
+        - handler: handleCall
+          kind: substrate/CallHandler
